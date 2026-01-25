@@ -1,6 +1,12 @@
 import * as WebSocket from "ws";
+import { config } from "dotenv";
 
-const wss = new WebSocket.Server({ port: 8080 });
+config();
+
+const PORT = Number(process.env.PORT || 8080);
+const wss = new WebSocket.Server({ port: PORT });
+
+console.log(`Firos's WS running on port ${PORT}`);
 
 type Player = {
   id: string;
