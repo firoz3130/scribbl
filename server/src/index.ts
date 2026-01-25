@@ -174,10 +174,39 @@ wss.on("connection", (socket, req) => {
     broadcast(roomId, msg);
   });
 
-  socket.on("close", () => {
-    room.players = room.players.filter(p => p.id !== id);
-    if (room.drawerId === id) room.drawerId = null;
-  });
+    socket.on("close", () => {
+        const room = rooms[roomId];
+        if (!room) return;
+
+        // remove player
+        room.players = room.players.filter(p => p.id !== id);
+
+        // fix drawerIndex if out of bounds
+        if (room.drawerIndex >= room.players.length) {
+            room.drawerIndex = 0;
+        }
+
+        // reset drawer if needed
+        if (room.drawerId === id) {
+            room.drawerId = room.players[room.drawerIndex]?.id ?? null;
+        }
+
+        // delete empty room
+        if (room.players.length === 0) {
+            delete rooms[roomId];
+            return;
+        }
+
+        // broadcast updated scores/player list
+        broadcast(roomId, {
+            type: "SCORE",
+            scores: room.players.map(p => ({
+            id: p.id,
+            score: p.score,
+            })),
+        });
+        });
+
 });
 
 console.log("WS running on ws://localhost:8080");

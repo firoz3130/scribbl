@@ -12,24 +12,25 @@ export default function Canvas({ send, isDrawer, incomingStroke }: Props) {
   const drawing = useRef(false);
 
   /** Draw strokes coming from OTHER players */
-useEffect(() => {
-  const canvas = canvasRef.current;
-  if (!canvas) return;
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-  const ctx = canvas.getContext("2d")!;
-  ctx.lineWidth = 2;
-  ctx.lineCap = "round";
+    const ctx = canvas.getContext("2d")!;
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "#4caf50";
 
-  if (incomingStroke === null) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    return;
-  }
+    if (incomingStroke === null) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+      return;
+    }
 
-  ctx.lineTo(incomingStroke.x, incomingStroke.y);
-  ctx.stroke();
-}, [incomingStroke]);
-
+    ctx.lineTo(incomingStroke.x, incomingStroke.y);
+    ctx.stroke();
+  }, [incomingStroke]);
 
   /** Local drawing (drawer only) */
   function onMouseDown(e: React.MouseEvent) {
@@ -38,6 +39,11 @@ useEffect(() => {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext("2d")!;
     drawing.current = true;
+
+    ctx.strokeStyle = "#ffd700";
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
 
     ctx.beginPath();
     ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
@@ -62,9 +68,15 @@ useEffect(() => {
       width={600}
       height={400}
       style={{
-        border: "1px solid gray",
-        background: "#222",
-        marginTop: 10,
+        border: "3px solid rgba(255, 255, 255, 0.3)",
+        borderRadius: "15px",
+        background: "#1a1a2e",
+        cursor: isDrawer ? "crosshair" : "default",
+        display: "block",
+        margin: "0 auto",
+        boxShadow: "0 10px 40px rgba(0, 0, 0, 0.3)",
+        maxWidth: "100%",
+        height: "auto",
       }}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
