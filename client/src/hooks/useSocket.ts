@@ -5,7 +5,7 @@ export function useSocket(onMessage: (data: SocketMessage) => void) {
 	const socketRef = useRef<WebSocket | null>(null);
 
 	useEffect(() => {
-		const ws = new WebSocket("https://consequences-finder-oecd-driven.trycloudflare.com/");
+		const ws = new WebSocket("https://interact-appeals-transmit-rock.trycloudflare.com/");
 		socketRef.current = ws;
 
 		ws.onopen = () => {
