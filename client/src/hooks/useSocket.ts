@@ -5,7 +5,9 @@ export function useSocket(onMessage: (data: SocketMessage) => void) {
 	const socketRef = useRef<WebSocket | null>(null);
 
 	useEffect(() => {
-		const ws = new WebSocket("https://anybody-spelling-strongly-varying.trycloudflare.com  ");
+		const ws = new WebSocket(
+			"https://porter-trivia-marion-symptoms.trycloudflare.com",
+		);
 		socketRef.current = ws;
 
 		ws.onopen = () => {
@@ -24,10 +26,9 @@ export function useSocket(onMessage: (data: SocketMessage) => void) {
 		return () => ws.close();
 	}, []);
 
-const send = (data: SocketMessage) => {
-  socketRef.current?.send(JSON.stringify(data));
-};
-
+	const send = (data: SocketMessage) => {
+		socketRef.current?.send(JSON.stringify(data));
+	};
 
 	return { send };
 }
