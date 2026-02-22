@@ -6,7 +6,7 @@ export function useSocket(onMessage: (data: SocketMessage) => void) {
 
 	useEffect(() => {
 		const ws = new WebSocket(
-			"https://porter-trivia-marion-symptoms.trycloudflare.com",
+			"https://lower-shoes-gale-readers.trycloudflare.com",
 		);
 		socketRef.current = ws;
 
