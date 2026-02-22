@@ -5,7 +5,7 @@ import { useSocket } from "../hooks/useSocket";
 import Toast from "../components/Toast";
 import type { SocketMessage, DrawMessage } from "../types/socket";
 
-const WORDS = ["apple", "car", "house"];
+const WORDS = ["apple", "car", "house", "Weather", "Books","Love","Hate","Mad","Football","Spark","Friend","Best Friend","Girl Friend","Boy Friend"];
 
 type ToastItem = {
   id: string;
