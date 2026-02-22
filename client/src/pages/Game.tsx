@@ -81,7 +81,7 @@ export default function Game() {
         break;
 
       case "CORRECT":
-        addToast("🎉 Correct guess! Well done!", "success");
+        addToast("🎉 Correct guess! Well done!!!", "success");
         handleRoundEnd();
         break;
 
